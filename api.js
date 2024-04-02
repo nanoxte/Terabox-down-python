@@ -1,18 +1,8 @@
-const axios = require("axios");
+import requests
 
-async function getDetails(id) {
-    try {
-        const response = await axios.get(
-            `https://terabox-app-pearl.vercel.app/api?data=${id}`
-        );
-        return response.data;
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-
-module.exports = {
-    getDetails,
-    
-};
+def get_details(id):
+    try:
+        response = requests.get(f"https://terabox-app-pearl.vercel.app/api?data={id}")
+        return response.json()
+    except Exception as e:
+        print(e)
