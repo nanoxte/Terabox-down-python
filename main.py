@@ -20,7 +20,7 @@ async def start_command(client, message):
     )
 
 # Message handler
-@app.on_message(filters.text & ~filters.command())
+@app.on_message(filters.text)
 async def handle_message(client, message):
     message_text = message.text
     if "terabox.com" in message_text or "teraboxapp.com" in message_text:
