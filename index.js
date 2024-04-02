@@ -8,7 +8,7 @@ async function main() {
   bot.start(async (ctx) => {
     try {
       ctx.reply(
-        `Hi ${ctx.message.from.first_name},\n\nI can Download Files from Terabox.\n\nMade with ❤️ by (.𝖎𝖔𝖉𝖊𝖛𝖘)[https://t.me/botio_devs]\n\nSend any terabox link to download.°°°° \n\n ⚠️spam is ban!!😒`,
+        `Hi ${ctx.message.from.first_name},\n\nI can Download Files from Terabox.\n\nMade with ❤️ by [.𝖎𝖔𝖉𝖊𝖛𝖘](https://t.me/botio_devs)\n\nSend any terabox link to download.°°°° \n\n ⚠️spam is ban!!😒`,
         Markup.inlineKeyboard([
           Markup.button.url(" Channel", "https://t.me/botio_devs"),
         ]),
