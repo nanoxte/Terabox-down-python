@@ -3,8 +3,13 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from api import get_details
 from utils import send_file
 
-# Initialize the Pyrogram client
-app = Client("my_bot")
+# Initialize the Pyrogram client with API credentials
+app = Client(
+    "my_bot",
+    api_id=10471716,
+    api_hash="f8a1b21a13af154596e2ff5bed164860",
+    bot_token="6365859811:AAF1Aj_VrbdxS9aPED2PqjwRaeEi4fcm_JE"
+)
 
 # Start command handler
 @app.on_message(filters.command(["start"]))
