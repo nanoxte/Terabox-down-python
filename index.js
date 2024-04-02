@@ -2,7 +2,6 @@ async function main() {
   const { Telegraf, Markup } = require("telegraf");
   const { getDetails } = require("./api");
   const { sendFile } = require("./utils");
-  const express = require("express");
 
   const bot = new Telegraf(process.env.BOT_TOKEN);
 
@@ -27,11 +26,6 @@ async function main() {
         messageText.includes("terabox.com") ||
         messageText.includes("teraboxapp.com")
       ) {
-        //const parts = messageText.split("/");
-        //const linkID = parts[parts.length - 1];
-
-        // ctx.reply(linkID)
-
         const details = await getDetails(messageText);
         if (details && details.direct_link) {
           try {
@@ -52,11 +46,7 @@ async function main() {
     }
   });
 
-  const app = express();
-  // Set the bot API endpoint
-  app.use(await bot.createWebhook({ domain: process.env.WEBHOOK_URL }));
-
-  app.listen(process.env.PORT || 3000, () => console.log("Server Started"));
+  bot.launch();
 }
 
 main();
