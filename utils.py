@@ -1,5 +1,6 @@
 import requests
 import io
+import tempfile
 import ffmpeg
 
 async def send_file(item, message):
@@ -18,21 +19,26 @@ async def send_file(item, message):
             content_type = response.headers.get('content-type')
             if content_type:
                 if 'video' in content_type:
+                    # Write video file to a temporary file
+                    with tempfile.NamedTemporaryFile(delete=False) as temp_video:
+                        temp_video.write(response.content)
+                        temp_video_path = temp_video.name
+                    
                     # Retrieve video duration
-                    probe = ffmpeg.probe(file_bytes)
+                    probe = ffmpeg.probe(temp_video_path)
                     video_info = next(stream for stream in probe['streams'] if stream['codec_type'] == 'video')
                     duration = video_info['duration']
                     
                     # Set a random frame from the video as thumbnail
                     thumbnail_bytes, _ = (
                         ffmpeg
-                        .input(file_bytes)
+                        .input(temp_video_path)
                         .filter('select', 'gte(n,1)')
                         .output('pipe:', vframes=1, format='image2', vcodec='mjpeg')
                         .run(capture_stdout=True)
                     )
                     
-                    await message.reply_video(video=file_bytes, duration=int(float(duration)), caption=filename, thumb=thumbnail_bytes)
+                    await message.reply_video(video=temp_video_path, duration=int(float(duration)), caption=filename, thumb=thumbnail_bytes)
                 elif 'image' in content_type:
                     await message.reply_photo(photo=file_bytes, caption=filename)
                 else:
