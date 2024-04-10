@@ -78,7 +78,7 @@ async def send_file(item, message):
                     
                     await message.reply_video(video=temp_video_path, duration=int(float(duration)), caption=filename, thumb=thumbnail_path, reply_to_message_id=message.id)
                 elif 'image' in content_type:
-                    await message.reply_photo(photo=file_bytes, caption=filename)
+                    await message.reply_photo(photo=file_bytes, caption=filename, reply_to_message_id=message.id)
                 else:
                     if content_disposition:
                         filename_index = content_disposition.find('filename=')
@@ -86,17 +86,17 @@ async def send_file(item, message):
                             filename = content_disposition[filename_index + len('filename='):]
                             filename = filename.strip('"')  # Remove surrounding quotes, if any
                             file_bytes.name = filename
-                            await message.reply_document(document=file_bytes, caption=filename)
+                            await message.reply_document(document=file_bytes, caption=filename, reply_to_message_id=message.id)
                         else:
-                            await message.reply_text("Failed to extract filename from content disposition.")
+                            await message.reply_text("Failed to extract filename from content disposition.", reply_to_message_id=message.id)
                     else:
-                        await message.reply_text("Failed to extract filename from content disposition.")
+                        await message.reply_text("Failed to extract filename from content disposition.", reply_to_message_id=message.id)
             else:
                 await message.reply_text("Failed to determine the type of the file.")
         else:
-            await message.reply_text("Failed to download the file from the provided URL. Url didn't connect.")
+            await message.reply_text("Failed to download the file from the provided URL. Url didn't connect.", reply_to_message_id=message.id)
     except Exception as e:
-        await message.reply_text(f"An error occurred: {str(e)}\n\n Use this [link]({item}) to download the file\n\nOR, use our [URL UPLOADER BOT](https://t.me/UrlUploaderio_bot")
+        await message.reply_text(f"An error occurred: {str(e)}\n\n **Use this [link]({item})** to download the file\n\n**OR**, use our **[URL UPLOADER BOT](https://t.me/UrlUploaderio_bot)**", reply_to_message_id=message.id)
 
 
 # Start the bot
