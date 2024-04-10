@@ -20,7 +20,7 @@ async def send_file(item, message):
             if content_type:
                 if 'video' in content_type:
                     # Write video file to a temporary file
-                    with tempfile.NamedTemporaryFile(delete=False) as temp_video:
+                    with tempfile.NamedTemporaryFile(suffix='.mp4', delete=False) as temp_video:
                         temp_video.write(response.content)
                         temp_video_path = temp_video.name
                     
@@ -30,15 +30,10 @@ async def send_file(item, message):
                     duration = video_info['duration']
                     
                     # Set a random frame from the video as thumbnail
-                    thumbnail_bytes, _ = (
-                        ffmpeg
-                        .input(temp_video_path)
-                        .filter('select', 'gte(n,1)')
-                        .output('pipe:', vframes=1, format='image2', vcodec='mjpeg')
-                        .run(capture_stdout=True)
-                    )
+                    thumbnail_path = tempfile.NamedTemporaryFile(suffix='.jpg', delete=False).name
+                    ffmpeg.input(temp_video_path).filter('select', 'gte(n,1)').output(thumbnail_path, vframes=1).run(overwrite_output=True)
                     
-                    await message.reply_video(video=temp_video_path, duration=int(float(duration)), caption=filename, thumb=thumbnail_bytes)
+                    await message.reply_video(video=temp_video_path, duration=int(float(duration)), caption=filename, thumb=thumbnail_path)
                 elif 'image' in content_type:
                     await message.reply_photo(photo=file_bytes, caption=filename)
                 else:
