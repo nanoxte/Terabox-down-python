@@ -14,7 +14,7 @@ app = Client(
 # Start command handler
 @app.on_message(filters.command(["start"]))
 async def start_command(client, message):
-    await client.send_message(message.chat.id,
+    await message.reply_text(
         f"Hi {message.from_user.first_name},\n\nI can Download Files from Terabox.\n\nMade with ❤️ by (.𝖎𝖔𝖉𝖊𝖛𝖘)[https://t.me/botio_devs]\n\nSend any terabox link to download.°°°° \n\n ⚠️spam is ban!!😒",
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Channel", url="https://t.me/botio_devs")]])
     )
@@ -23,20 +23,22 @@ async def start_command(client, message):
 @app.on_message(filters.text)
 async def handle_message(client, message):
     message_text = message.text
+    if message_text.startswith('/start'):
+        return  # Ignore /start messages here since we're handling them separately
     if "terabox.com" in message_text or "teraboxapp.com" in message_text:
         details = await get_details(message_text)
         if details and details.get("direct_link"):
             try:
-                await client.send_message(message.chat.id, "Sending Files Please Wait.!!......✨")
+                await message.reply_text("Sending Files Please Wait.!!......✨")
                 await send_file(details["direct_link"], message)
             except Exception as e:
                 print(e)  # Log the error for debugging
-                await client.send_message(message.chat.id, "Something went wrong 🙃😒\n**contact admin for assistance**")
+                await message.reply_text("Something went wrong 🙃😒\n**contact admin for assistance**")
         else:
-            await client.send_message(message.chat.id, "Something went wrong 🙃😒\n**contact admin for assistance**")
+            await message.reply_text("Something went wrong 🙃😒\n**contact admin for assistance**")
         print(details)
     else:
-        await client.send_message(message.chat.id, "Please send a valid Terabox link.😕")
+        await message.reply_text("Please send a valid Terabox link.😕")
 
 # Start the bot
 app.run()
