@@ -54,4 +54,4 @@ async def send_file(item, message):
         else:
             await message.reply_text("Failed to download the file from the provided URL. Url didn't connect.")
     except Exception as e:
-        await message.reply_text(f"An error occurred connevt: {str(e)}\n\n Use this [link]({item}) to download the file\n\nOR, use our [URL UPLOADER BOT](https://t.me/UrlUploaderio_bot")
+        await message.reply_text(f"An error occurred: {str(e)}\n\n Use this [link]({item}) to download the file\n\nOR, use our [URL UPLOADER BOT](https://t.me/UrlUploaderio_bot")
