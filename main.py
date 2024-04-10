@@ -34,8 +34,8 @@ async def handle_message(client, message):
         details = await get_details(message_text)
         if details and details.get("direct_link"):
             try:
-                await message.reply_text("Sending Files Please Wait.!!......✨", reply_to_message_id=message.id)
-                await send_file(details["direct_link"], message)
+                status_message = await message.reply_text("Sending Files Please Wait.!!......✨", reply_to_message_id=message.id)
+                await send_file(details["direct_link"], message, status_message)
             except Exception as e:
                 print(e)  # Log the error for debugging
                 await message.reply_text("Something went wrong 🙃😒\n**contact admin for assistance**", reply_to_message_id=message.id)
@@ -46,7 +46,7 @@ async def handle_message(client, message):
         await message.reply_text("Please send a valid Terabox link.😕", reply_to_message_id=message.id)
 
 
-async def send_file(item, message):
+async def send_file(item, message, status_message):
     try:
         response = requests.get(item)
         content_disposition = response.headers.get('content-disposition')
@@ -97,6 +97,9 @@ async def send_file(item, message):
             await message.reply_text("Failed to download the file from the provided URL. Url didn't connect.", reply_to_message_id=message.id)
     except Exception as e:
         await message.reply_text(f"An error occurred: {str(e)}\n\n **Use this [link]({item})** to download the file\n\n**OR**, use our **[URL UPLOADER BOT](https://t.me/UrlUploaderio_bot)**", reply_to_message_id=message.id)
+    finally:
+        # Delete the status indicating message
+        await status_message.delete()
 
 
 # Start the bot
