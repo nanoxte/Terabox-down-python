@@ -1,9 +1,9 @@
 import requests
 import io
 
-async def send_file_from_url(url, message):
+async def send_file(item, message):
     try:
-        response = requests.get(url)
+        response = requests.get(item)
         if response.status_code == 200:
             file_bytes = io.BytesIO(response.content)
             content_disposition = response.headers.get('content-disposition')
