@@ -17,7 +17,7 @@ async def start_command(client, message):
     await message.reply_text(
         f"Hi {message.from_user.first_name},\n\nI can Download Files from Terabox.\n\nMade with ❤️ by (.𝖎𝖔𝖉𝖊𝖛𝖘)[https://t.me/botio_devs]\n\nSend any terabox link to download.°°°° \n\n ⚠️spam is ban!!😒",
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Channel", url="https://t.me/botio_devs")]])
-        reply_to_message_id=message.id
+        reply_to_message_id=message.id,
     )
 
 # Message handler
