@@ -1,3 +1,5 @@
+requests
 pyrogram
 aiohttp
 Tgcrypto
+python-ffmpeg
