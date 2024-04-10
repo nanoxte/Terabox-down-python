@@ -14,7 +14,7 @@ app = Client(
 # Start command handler
 @app.on_message(filters.command(["start"]))
 async def start_command(client, message):
-    await message.reply_text(
+    await client.send_message(message.chat.id,
         f"Hi {message.from_user.first_name},\n\nI can Download Files from Terabox.\n\nMade with ❤️ by (.𝖎𝖔𝖉𝖊𝖛𝖘)[https://t.me/botio_devs]\n\nSend any terabox link to download.°°°° \n\n ⚠️spam is ban!!😒",
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Channel", url="https://t.me/botio_devs")]])
     )
@@ -27,15 +27,16 @@ async def handle_message(client, message):
         details = await get_details(message_text)
         if details and details.get("direct_link"):
             try:
-                await message.reply_text("Sending Files Please Wait.!!......✨")
+                await client.send_message(message.chat.id, "Sending Files Please Wait.!!......✨")
                 await send_file(details["direct_link"], message)
             except Exception as e:
                 print(e)  # Log the error for debugging
+                await client.send_message(message.chat.id, "Something went wrong 🙃😒\n**contact admin for assistance**")
         else:
-            await message.reply_text("Something went wrong 🙃😒\n**contact admin for assistance**")
+            await client.send_message(message.chat.id, "Something went wrong 🙃😒\n**contact admin for assistance**")
         print(details)
     else:
-        await message.reply_text("Please send a valid Terabox link.😕")
+        await client.send_message(message.chat.id, "Please send a valid Terabox link.😕")
 
 # Start the bot
 app.run()
