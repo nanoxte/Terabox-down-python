@@ -33,7 +33,7 @@ def start_command(client, message):
 
     markup = InlineKeyboardMarkup(buttons)
 
-    message.reply_text("☺︎нαι\n✦ Send Me A Terabox Link To Start My work\n\n╭──── ⋅ ⋅ ────── 𝐈𝐍𝐓𝐑𝐎 ────── ⋅ ⋅ ─────╮\n   ✇ I'm Legendary Terabox Utility Bot\n   ✇ 𝙼𝚢 𝙱𝚘𝚜𝚜 𝙸𝚜 𝙳𝚊𝚒𝚕𝚢 𝚄𝚙𝚍𝚊𝚝𝚒𝚗𝚐 𝙼𝚎\n   ✇ 𝙳𝚘𝚗𝚝 𝙵𝚘𝚛𝚐𝚎𝚝 𝚝𝚘 𝙹𝚘𝚒𝚗 𝙼𝚢 [𝙵𝚊𝚖𝚒𝚕𝚢](https://t.me/botio_devs)\n╰────── ⋅ ⋅ ────── ✩ ────── ⋅ ⋅ ──────╯\n\n[𓆩🄰🄳🄼🄸🄽𓆪](https://t.me/Appuz_007)", reply_markup=markup)
+    message.reply_text("☺︎нαι\n✦ Send Me A Terabox Link To Start My work\n\n╭──── ⋅ ⋅ ────── 𝐈𝐍𝐓𝐑𝐎 ────── ⋅ ⋅ ─────╮\n   ✇ I'm Legendary Terabox Utility Bot\n   ✇ 𝙼𝚢 𝙱𝚘𝚜𝚜 𝙸𝚜 𝙳𝚊𝚒𝚕𝚢 𝚄𝚙𝚍𝚊𝚝𝚒𝚗𝚐 𝙼𝚎\n   ✇ 𝙳𝚘𝚗𝚝 𝙵𝚘𝚛𝚐𝚎𝚝 𝚝𝚘 𝙹𝚘𝚒𝚗 𝙼𝚢 [𝙵𝚊𝚖𝚒𝚕𝚢](https://t.me/botio_devs)\n╰────── ⋅ ⋅ ────── ✩ ────── ⋅ ⋅ ──────╯\n\n[𓆩🄰🄳🄼🄸🄽𓆪](https://t.me/Appuz_007)", reply_markup=markup, disable_web_page_preview=True)
 
 
 @app.on_callback_query()
@@ -44,13 +44,13 @@ def handle_callback_query(client, query):
         about_text = "<b>︵‿︵‿︵‿୨ ꪑꫀ ୧‿︵‿︵‿︵\nNᴀᴍᴇ: [Terabox Downloader](https://t.me/TeraboxDownloader_l_Bot)\nAɪᴍ: To Make Your Life Easy\nFᴀᴛʜᴇʀ: [Aᴘᴘᴜs](https://t.me/APPUZ_001)\nDNA:Pʏʀᴏɢʀᴀᴍ ᴠ𝟸\n‿︵‿︵‿︵‿︵‿︵‿︵‿︵‿︵</b>"
         back_button = InlineKeyboardButton("Back", callback_data="back")
         markup = InlineKeyboardMarkup([[back_button]])
-        query.edit_message_text(about_text, reply_markup=markup, parse_mode=None)
+        query.edit_message_text(about_text, reply_markup=markup, parse_mode=None, disable_web_page_preview=True)
     
     elif data == "our_bots":
         bots_text = "<b>═ ══ ═[🄾🅄🅁 🄶🄰🅁🄰🄶🄴](https://t.me/botio_devs)═ ══ ═\n\n[𝚄𝚛𝚕 𝚄𝚙𝚕𝚘𝚊𝚍𝚎𝚛 𝙱𝚘𝚝](https://t.me/UrlUploaderio_bot)\n\n[𝙰𝚍𝚕𝚒𝚗𝚔𝚜 𝙱𝚢𝚙𝚊𝚜𝚜𝚎𝚛](https://t.me/io_Link_bypasserbot)\n\n[𝟷𝟾+ 𝚂𝚎𝚊𝚛𝚌𝚑 𝙱𝚘𝚝](https://t.me/Adult_pornsearchbot)\n\n[𝙰𝚒 𝙸𝚖𝚊𝚐𝚎 𝙶𝚎𝚗𝚎𝚛𝚊𝚝𝚘𝚛](https://t.me/Image_l_GeneratorBot)\n\n[𝙵𝚒𝚕𝚎 𝚂𝚝𝚘𝚛𝚎 𝙱𝚘𝚝](https://t.me/FileStore_l_Bot)\n\n[𝚃𝚎𝚛𝚊𝚋𝚘𝚡 𝙳𝚘𝚠𝚗𝚕𝚘𝚊𝚍𝚎𝚛](https://t.me/TeraboxDownloader_l_Bot)\n\n\n\"Cᴏᴅᴇ ᴡɪᴛʜ ᴀ ʀᴇʙᴇʟ sᴘɪʀɪᴛ, ᴅᴇʙᴜɢ ᴡɪᴛʜ ᴀ ᴡᴀʀʀɪᴏʀ's ᴘᴀᴛɪᴇɴᴄᴇ, ᴀɴᴅ ᴄᴏɴǫᴜᴇʀ ᴄʜᴀʟʟᴇɴɢᴇs ʟɪᴋᴇ ᴀ ᴛʀᴜᴇ ᴅᴇᴠᴇʟᴏᴘᴇʀ ᴄʜᴀᴍᴘɪᴏɴ. 💻⚔️ #DᴇᴠAᴛᴛɪᴛᴜᴅᴇ\"\n\n\nѕнαяє αи∂ ѕυρρσят υѕ</b>"
         back_button = InlineKeyboardButton("Back", callback_data="back")
         markup = InlineKeyboardMarkup([[back_button]])
-        query.edit_message_text(bots_text, reply_markup=markup, parse_mode=None)
+        query.edit_message_text(bots_text, reply_markup=markup, parse_mode=None, disable_web_page_preview=True)
     
     elif data == "back":
         # Show the initial welcome message with buttons
@@ -62,7 +62,7 @@ def handle_callback_query(client, query):
         [InlineKeyboardButton("Join Updates Channel", url="https://t.me/botio_devs")],
         ]
         markup = InlineKeyboardMarkup(buttons)
-        query.edit_message_text("☺︎нαι\n✦ Send Me A Terabox Link To Start My work\n\n╭──── ⋅ ⋅ ────── 𝐈𝐍𝐓𝐑𝐎 ────── ⋅ ⋅ ─────╮\n   ✇ I'm Legendary Terabox Utility Bot\n   ✇ 𝙼𝚢 𝙱𝚘𝚜𝚜 𝙸𝚜 𝙳𝚊𝚒𝚕𝚢 𝚄𝚙𝚍𝚊𝚝𝚒𝚗𝚐 𝙼𝚎\n   ✇ 𝙳𝚘𝚗𝚝 𝙵𝚘𝚛𝚐𝚎𝚝 𝚝𝚘 𝙹𝚘𝚒𝚗 𝙼𝚢 [𝙵𝚊𝚖𝚒𝚕𝚢](https://t.me/botio_devs)\n╰────── ⋅ ⋅ ────── ✩ ────── ⋅ ⋅ ──────╯\n\n[𓆩🄰🄳🄼🄸🄽𓆪](https://t.me/Appuz_007)", reply_markup=markup)
+        query.edit_message_text("☺︎нαι\n✦ Send Me A Terabox Link To Start My work\n\n╭──── ⋅ ⋅ ────── 𝐈𝐍𝐓𝐑𝐎 ────── ⋅ ⋅ ─────╮\n   ✇ I'm Legendary Terabox Utility Bot\n   ✇ 𝙼𝚢 𝙱𝚘𝚜𝚜 𝙸𝚜 𝙳𝚊𝚒𝚕𝚢 𝚄𝚙𝚍𝚊𝚝𝚒𝚗𝚐 𝙼𝚎\n   ✇ 𝙳𝚘𝚗𝚝 𝙵𝚘𝚛𝚐𝚎𝚝 𝚝𝚘 𝙹𝚘𝚒𝚗 𝙼𝚢 [𝙵𝚊𝚖𝚒𝚕𝚢](https://t.me/botio_devs)\n╰────── ⋅ ⋅ ────── ✩ ────── ⋅ ⋅ ──────╯\n\n[𓆩🄰🄳🄼🄸🄽𓆪](https://t.me/Appuz_007)", reply_markup=markup, disable_web_page_preview=True)
 
 
 
