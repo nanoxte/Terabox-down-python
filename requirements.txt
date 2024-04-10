@@ -3,3 +3,4 @@ pyrogram
 aiohttp
 Tgcrypto
 python-ffmpeg
+ffmpeg-python
