@@ -2,6 +2,7 @@ import requests
 import io
 import tempfile
 import ffmpeg
+from http.client import IncompleteRead
 
 async def send_file(item, message):
     try:
@@ -52,5 +53,7 @@ async def send_file(item, message):
                 await message.reply_text("Failed to determine the type of the file.")
         else:
             await message.reply_text("Failed to download the file from the provided URL. Url didn't connect.")
+    except IncompleteRead as e:
+        await message.reply_text("Download failed. Url didn't connect.")
     except Exception as e:
-        await message.reply_text(f"An error occurred: {str(e)}")
+        await message.reply_text(f"An error occurrednot connevt: {str(e)}")
