@@ -1,9 +1,9 @@
 import requests
 import io
 
-async def send_file(item, message):
+async def send_file_from_url(url, message):
     try:
-        response = requests.get(item)
+        response = requests.get(url)
         if response.status_code == 200:
             file_bytes = io.BytesIO(response.content)
             content_disposition = response.headers.get('content-disposition')
@@ -13,7 +13,11 @@ async def send_file(item, message):
                     filename = content_disposition[filename_index + len('filename='):]
                     filename = filename.strip('"')  # Remove surrounding quotes, if any
                     file_bytes.name = filename
-            await message.reply_document(document=file_bytes)
+                    await message.reply_document(document=file_bytes, caption=filename)
+                else:
+                    await message.reply_text("Failed to extract filename from content disposition.")
+            else:
+                await message.reply_text("Failed to extract filename from content disposition.")
         else:
             await message.reply_text("Failed to download the file from the provided URL.")
     except Exception as e:
