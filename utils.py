@@ -1,5 +1,6 @@
 import requests
 import io
+import main.py
 import tempfile
 import ffmpeg
 from http.client import IncompleteRead
