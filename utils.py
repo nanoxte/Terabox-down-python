@@ -3,6 +3,7 @@ import io
 
 async def send_file(item, message):
     try:
+        response = requests.get(item)  # Move this line before referencing response
         content_disposition = response.headers.get('content-disposition')
         if content_disposition:
             filename_index = content_disposition.find('filename=')
@@ -10,7 +11,6 @@ async def send_file(item, message):
                 filename = content_disposition[filename_index + len('filename='):]
                 filename = filename.strip('"')  # Remove surrounding quotes, if any
                 file_bytes.name = filename
-        response = requests.get(item)
         if response.status_code == 200:
             file_bytes = io.BytesIO(response.content)
             content_type = response.headers.get('content-type')
