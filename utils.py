@@ -35,9 +35,7 @@ async def send_file(item, message):
                     ffmpeg.input(temp_video_path).filter('select', 'gte(n,1)').output(thumbnail_path, vframes=1).run(overwrite_output=True)
                     
                     if message.reply_to_message:
-                        await message.reply_video(video=temp_video_path, duration=int(float(duration)), caption=filename, thumb=thumbnail_path, reply_to=message.reply_to_message.message_id)
-                    else:
-                        await message.reply_video(video=temp_video_path, duration=int(float(duration)), caption=filename)
+                        await message.reply_video(video=temp_video_path, duration=int(float(duration)), caption=filename, thumb=thumbnail_path, reply_to_message_id=message.id)
                 elif 'image' in content_type:
                     if message.reply_to_message:
                         await message.reply_photo(photo=file_bytes, caption=filename, reply_to=message.reply_to_message.message_id)
