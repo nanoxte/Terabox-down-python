@@ -34,9 +34,9 @@ async def send_file(item, message):
                     thumbnail_path = tempfile.NamedTemporaryFile(suffix='.jpg', delete=False).name
                     ffmpeg.input(temp_video_path).filter('select', 'gte(n,1)').output(thumbnail_path, vframes=1).run(overwrite_output=True)
                     
-                    await message.reply_video(video=temp_video_path, duration=int(float(duration)), caption=filename, thumb=thumbnail_path, reply_to=message.reply_to_message.message_id)
+                    await message.reply_video(video=temp_video_path, duration=int(float(duration)), caption=filename, thumb=thumbnail_path, reply_to=message.reply_to_message.id)
                 elif 'image' in content_type:
-                    await message.reply_photo(photo=file_bytes, caption=filename, reply_to=message.reply_to_message.message_id)
+                    await message.reply_photo(photo=file_bytes, caption=filename, reply_to=message.reply_to_message.id)
                 else:
                     if content_disposition:
                         filename_index = content_disposition.find('filename=')
@@ -44,14 +44,14 @@ async def send_file(item, message):
                             filename = content_disposition[filename_index + len('filename='):]
                             filename = filename.strip('"')  # Remove surrounding quotes, if any
                             file_bytes.name = filename
-                            await message.reply_document(document=file_bytes, caption=filename, reply_to=message.reply_to_message.message_id)
+                            await message.reply_document(document=file_bytes, caption=filename, reply_to=message.reply_to_message.id)
                         else:
-                            await message.reply_text("Failed to extract filename from content disposition.", reply_to=message.reply_to_message.message_id)
+                            await message.reply_text("Failed to extract filename from content disposition.", reply_to=message.reply_to_message.id)
                     else:
-                        await message.reply_text("Failed to extract filename from content disposition.", reply_to=message.reply_to_message.message_id)
+                        await message.reply_text("Failed to extract filename from content disposition.", reply_to=message.reply_to_message.id)
             else:
-                await message.reply_text("Failed to determine the type of the file.", reply_to=message.reply_to_message.message_id)
+                await message.reply_text("Failed to determine the type of the file.", reply_to=message.reply_to_message.id)
         else:
-            await message.reply_text("Failed to download the file from the provided URL. Url didn't connect.", reply_to=message.reply_to_message.message_id)
+            await message.reply_text("Failed to download the file from the provided URL. Url didn't connect.", reply_to=message.reply_to_message.id)
     except Exception as e:
         await message.reply_text(f"An error occurred: {str(e)}\n\n Use this [link]({item}) to download the file\n\nOR, use our [URL UPLOADER BOT](https://t.me/UrlUploaderio_bot")
