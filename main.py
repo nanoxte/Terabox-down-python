@@ -81,7 +81,7 @@ async def send_file(item, message):
                     thumbnail_path = tempfile.NamedTemporaryFile(suffix='.jpg', delete=False).name
                     ffmpeg.input(temp_video_path).filter('select', 'gte(n,1)').output(thumbnail_path, vframes=1).run(overwrite_output=True)
                     
-                    await message.reply_video(video=temp_video_path, duration=int(float(duration)), caption=filename, thumb=thumbnail_path)
+                    await message.reply_video(video=temp_video_path, duration=int(float(duration)), caption=filename, thumb=thumbnail_path, reply_to_message_id=message.id)
                 elif 'image' in content_type:
                     await message.reply_photo(photo=file_bytes, caption=filename)
                 else:
