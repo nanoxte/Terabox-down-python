@@ -45,11 +45,6 @@ async def handle_message(client, message):
     else:
         await message.reply_text("Please send a valid Terabox link.😕", reply_to_message_id=message.id)
 
-import requests
-import io
-import tempfile
-import ffmpeg
-from http.client import IncompleteRead
 
 async def send_file(item, message):
     try:
