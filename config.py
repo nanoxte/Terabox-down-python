@@ -16,6 +16,8 @@ def is_enabled(value, default):
         return default
 
 class Config(object):
+
+    TECH_VJ_BOT_USERNAME = os.environ.get("TECH_VJ_BOT_USERNAME", "Io_TesterBot") 
     
     # the download location, where the HTTP Server runs
     TECH_VJ_DOWNLOAD_LOCATION = "./DOWNLOADS"
