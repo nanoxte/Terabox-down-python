@@ -23,7 +23,7 @@ app = Client(
 # /start command handler
 @app.on_message(filters.command("start"))
 def start_command(client, message):
-    message.reply_text("hello you have started me......", reply_markup=markup, disable_web_page_preview=True)
+    message.reply_text("hello you have started me......")
 
 
 
