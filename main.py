@@ -3,6 +3,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from api import get_details
 import requests
 import io
+import random
 import os
 import tempfile
 import moviepy.editor as mp
@@ -90,6 +91,7 @@ async def handle_message(client, message):
 
 
 
+
 async def send_file(item, message, status_message):
     try:
         response = requests.get(item)
@@ -109,7 +111,7 @@ async def send_file(item, message, status_message):
                     video_duration = get_video_duration(file_bytes)
 
                     # Generate thumbnail
-                    thumbnail_path = generate_thumbnail(file_bytes)
+                    thumbnail_path = generate_thumbnail(file_bytes, video_duration)
 
                     await message.reply_video(video=file_bytes, duration=video_duration, thumb=thumbnail_path, caption=filename)
                 elif 'image' in content_type:
@@ -145,13 +147,14 @@ def get_video_duration(file_bytes):
     os.remove(temp_file_path)  # Remove temporary file
     return duration
 
-def generate_thumbnail(file_bytes):
+def generate_thumbnail(file_bytes, video_duration):
     with tempfile.NamedTemporaryFile(suffix='.mp4', delete=False) as temp_file:
         temp_file.write(file_bytes.getbuffer())
         temp_file_path = temp_file.name
-    video = mp.VideoFileClip(temp_file_path)
+    timestamp = random.uniform(0, video_duration)  # Generate a random timestamp within the video duration
     thumbnail_path = f"{temp_file_path}_thumbnail.jpg"
-    video.save_frame(thumbnail_path, t=0)  # Save the first frame as the thumbnail
+    video = mp.VideoFileClip(temp_file_path)
+    video.save_frame(thumbnail_path, t=timestamp)  # Save the frame at the generated timestamp as the thumbnail
     os.remove(temp_file_path)  # Remove temporary file
     return thumbnail_path
         
