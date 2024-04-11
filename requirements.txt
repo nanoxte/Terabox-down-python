@@ -4,3 +4,4 @@ aiohttp
 Tgcrypto
 python-ffmpeg
 ffmpeg-python
+moviepy
