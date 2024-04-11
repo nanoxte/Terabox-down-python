@@ -9,6 +9,7 @@ import tempfile
 import moviepy.editor as mp
 from database.adduser import AddUser
 from config import Config
+from pyrogram import Client as Tech_VJ
 from utils import verify_user, check_token, check_verification, get_token
 
 # Initialize the Pyrogram client with API credentials
