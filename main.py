@@ -83,6 +83,7 @@ async def echo(bot, update):
         await AddUser(bot, update)
 
 # Correct indentation for handle_message function
+@app.on_message(filters.text)
 async def handle_message(client, message):    
     message_text = message.text
     if message_text.startswith('/start'):
