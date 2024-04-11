@@ -23,7 +23,7 @@ app = Client(
 # /start command handler
 @app.on_message(filters.command("start"))
 def start_command(client, message):
-    message.reply_text("☺︎нαι\n✦ Send Me A Terabox Link To Start My work\n\n╭──── ⋅ ⋅ ────── 𝐈𝐍𝐓𝐑𝐎 ────── ⋅ ⋅ ─────╮\n   ✇ I'm Legendary Terabox Utility Bot\n   ✇ 𝙼𝚢 𝙱𝚘𝚜𝚜 𝙸𝚜 𝙳𝚊𝚒𝚕𝚢 𝚄𝚙𝚍𝚊𝚝𝚒𝚗𝚐 𝙼𝚎\n   ✇ 𝙳𝚘𝚗𝚝 𝙵𝚘𝚛𝚐𝚎𝚝 𝚝𝚘 𝙹𝚘𝚒𝚗 𝙼𝚢 [𝙵𝚊𝚖𝚒𝚕𝚢](https://t.me/botio_devs)\n╰────── ⋅ ⋅ ────── ✩ ────── ⋅ ⋅ ──────╯\n\n[𓆩🄰🄳🄼🄸🄽𓆪](https://t.me/Appuz_007)", reply_markup=markup, disable_web_page_preview=True)
+    message.reply_text("hello you have started me......", reply_markup=markup, disable_web_page_preview=True)
 
 
 
