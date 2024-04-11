@@ -3,6 +3,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from api import get_details
 import requests
 import io
+from translation import Translation
 import os
 import tempfile
 import moviepy.editor as mp
