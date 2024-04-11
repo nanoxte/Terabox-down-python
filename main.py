@@ -92,7 +92,8 @@ async def handle_message(client, message):
 
 
 
-async def send_file(item, message, status_message):
+
+async def send_file(item, message):
     try:
         response = requests.get(item)
         content_disposition = response.headers.get('content-disposition')
@@ -103,30 +104,13 @@ async def send_file(item, message, status_message):
                 filename = filename.strip('"')  # Remove surrounding quotes, if any
                 file_bytes = io.BytesIO(response.content)  # Define file_bytes here
                 file_bytes.name = filename
-                
         if response.status_code == 200:
             content_type = response.headers.get('content-type')
             if content_type:
                 if 'video' in content_type:
-                    # Write video file to a temporary file
-                    with tempfile.NamedTemporaryFile(suffix='.mp4', delete=False) as temp_video:
-                        temp_video.write(response.content)
-                        temp_video_path = temp_video.name
-                    print("Temp video path:", temp_video_path)  # Add this line to check the temp video path
-
-                    # Get video duration using moviepy
-                    clip = VideoFileClip(temp_video_path)
-                    print("Clip duration:", clip.duration)  # Add this line to check the clip duration
-                    duration = clip.duration
-                    clip.close()
-                    
-                    # Set a random frame from the video as thumbnail
-                    thumbnail_path = tempfile.NamedTemporaryFile(suffix='.jpg', delete=False).name
-                    clip.save_frame(thumbnail_path, t=1)  # Save frame at 1 second
-                    
-                    await message.reply_video(video=temp_video_path, duration=int(duration), caption=filename, thumb=thumbnail_path, reply_to_message_id=message.id)
+                    await message.reply_video(video=file_bytes, caption=filename)
                 elif 'image' in content_type:
-                    await message.reply_photo(photo=file_bytes, caption=filename, reply_to_message_id=message.id)
+                    await message.reply_photo(photo=file_bytes, caption=filename)
                 else:
                     if content_disposition:
                         filename_index = content_disposition.find('filename=')
@@ -134,20 +118,21 @@ async def send_file(item, message, status_message):
                             filename = content_disposition[filename_index + len('filename='):]
                             filename = filename.strip('"')  # Remove surrounding quotes, if any
                             file_bytes.name = filename
-                            await message.reply_document(document=file_bytes, caption=filename, reply_to_message_id=message.id)
+                            await message.reply_document(document=file_bytes, caption=filename)
                         else:
-                            await message.reply_text("Failed to extract filename from content disposition.", reply_to_message_id=message.id)
+                            await message.reply_text("Failed to extract filename from content disposition.")
                     else:
-                        await message.reply_text("Failed to extract filename from content disposition.", reply_to_message_id=message.id)
+                        await message.reply_text("Failed to extract filename from content disposition.")
             else:
                 await message.reply_text("Failed to determine the type of the file.")
         else:
-            await message.reply_text("Failed to download the file from the provided URL. Url didn't connect.", reply_to_message_id=message.id)
+            await message.reply_text("Failed to download the file from the provided URL.")
     except Exception as e:
-        await message.reply_text(f"An error occurred: {str(e)}\n\n **Use this [link]({item})** to download the file\n\n**OR**, use our **[URL UPLOADER BOT](https://t.me/UrlUploaderio_bot)**", reply_to_message_id=message.id)
-    finally:
+        await message.reply_text(f"An error occurred: {str(e)}")
+        finally:
         # Delete the status indicating message
         await status_message.delete()
+        
 
 
 # Start the bot
