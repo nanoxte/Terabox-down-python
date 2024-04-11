@@ -44,6 +44,7 @@ async def echo(bot, update):
             reply_markup=InlineKeyboardMarkup(btn)
         )
         return
+        await AddUser(bot, update)
 
 # Correct indentation for handle_message function
 async def handle_message(client, message):    
