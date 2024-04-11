@@ -6,6 +6,7 @@ import io
 import os
 import tempfile
 import moviepy.editor as mp
+from config import Config
 from utils import verify_user, check_token, check_verification, get_token
 
 # Initialize the Pyrogram client with API credentials
