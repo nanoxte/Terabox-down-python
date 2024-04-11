@@ -43,7 +43,7 @@ class Config(object):
     
     # your telegram account id
     TECH_VJ_OWNER_ID = int(os.environ.get("TECH_VJ_OWNER_ID", "6883997969")) 
-    TECH_VJ_SESSION_NAME = "VJ-URL-UPLOADER-BOT"
+    TECH_VJ_SESSION_NAME = "Terabox-Bot"
     
     # database uri (mongodb)
     TECH_VJ_DATABASE_URL = os.environ.get("TECH_VJ_DATABASE_URL", "mongodb+srv://appuz:chrijismiappuz@cluster0.yngvhc2.mongodb.net/?retryWrites=true&w=majority")
