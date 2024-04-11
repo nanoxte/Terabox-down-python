@@ -29,7 +29,6 @@ def start_command(client, message):
 
 
 # Message handler
-@app.# Message handler
 @app.on_message(filters.text)
 async def echo(bot, update):
     if not await check_verification(bot, update.from_user.id) and Config.TECH_VJ == True:
