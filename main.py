@@ -13,7 +13,7 @@ app = Client(
     "my_bot",
     api_id=10471716,
     api_hash="f8a1b21a13af154596e2ff5bed164860",
-    bot_token="6550995906:AAG4-krS-EohlPgDjkCRS-Fudd802eFAyPk"
+    bot_token="6999401413:AAHgF1ZpUsCT5MgWX1Wky7GbegyeHvzi2AU"
 )
 
 # Start command handler
