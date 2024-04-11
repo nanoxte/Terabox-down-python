@@ -3,6 +3,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from api import get_details
 import requests
 import io
+import moviepy.editor as mp
 
 # Initialize the Pyrogram client with API credentials
 app = Client(
@@ -104,7 +105,13 @@ async def send_file(item, message, status_message):
             content_type = response.headers.get('content-type')
             if content_type:
                 if 'video' in content_type:
-                    await message.reply_video(video=file_bytes, caption=filename)
+                    # Get video duration
+                    video_duration = get_video_duration(file_bytes)
+
+                    # Generate thumbnail
+                    thumbnail_bytes = generate_thumbnail(file_bytes)
+
+                    await message.reply_video(video=file_bytes, duration=video_duration, thumb=thumbnail_bytes, caption=filename)
                 elif 'image' in content_type:
                     await message.reply_photo(photo=file_bytes, caption=filename)
                 else:
@@ -128,6 +135,15 @@ async def send_file(item, message, status_message):
     finally:
         # Delete the status indicating message
         await status_message.delete()
+
+def get_video_duration(video_bytes):
+    video = mp.VideoFileClip(video_bytes)
+    return int(video.duration)
+
+def generate_thumbnail(video_bytes):
+    video = mp.VideoFileClip(video_bytes)
+    thumbnail_bytes = video.get_frame(0)  # Get the first frame as the thumbnail
+    return thumbnail_bytes
         
 
 
