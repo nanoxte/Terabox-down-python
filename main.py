@@ -3,8 +3,9 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from api import get_details
 import requests
 import io
+from telegram import ParseMode
+from moviepy.editor import VideoFileClip
 import tempfile
-import ffmpeg
 from http.client import IncompleteRead
 
 
@@ -89,6 +90,9 @@ async def handle_message(client, message):
         await message.reply_text("Please send a valid Terabox link.😕", reply_to_message_id=message.id)
 
 
+
+
+
 async def send_file(item, message, status_message):
     try:
         response = requests.get(item)
@@ -110,16 +114,16 @@ async def send_file(item, message, status_message):
                         temp_video.write(response.content)
                         temp_video_path = temp_video.name
                     
-                    # Retrieve video duration
-                    probe = ffmpeg.probe(temp_video_path)
-                    video_info = next(stream for stream in probe['streams'] if stream['codec_type'] == 'video')
-                    duration = video_info['duration']
+                    # Get video duration using moviepy
+                    clip = VideoFileClip(temp_video_path)
+                    duration = clip.duration
+                    clip.close()
                     
                     # Set a random frame from the video as thumbnail
                     thumbnail_path = tempfile.NamedTemporaryFile(suffix='.jpg', delete=False).name
-                    ffmpeg.input(temp_video_path).filter('select', 'gte(n,1)').output(thumbnail_path, vframes=1).run(overwrite_output=True)
+                    clip.save_frame(thumbnail_path, t=1)  # Save frame at 1 second
                     
-                    await message.reply_video(video=temp_video_path, duration=int(float(duration)), caption=filename, thumb=thumbnail_path, reply_to_message_id=message.id)
+                    await message.reply_video(video=temp_video_path, duration=int(duration), caption=filename, thumb=thumbnail_path, reply_to_message_id=message.id)
                 elif 'image' in content_type:
                     await message.reply_photo(photo=file_bytes, caption=filename, reply_to_message_id=message.id)
                 else:
