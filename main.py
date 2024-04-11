@@ -3,10 +3,6 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from api import get_details
 import requests
 import io
-from moviepy.editor import VideoFileClip
-import tempfile
-from http.client import IncompleteRead
-
 
 # Initialize the Pyrogram client with API credentials
 app = Client(
