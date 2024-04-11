@@ -89,7 +89,7 @@ async def handle_message(client, message):
 
 
 
-async def send_file(item, message):
+async def send_file(item, message, status_message):
     try:
         response = requests.get(item)
         content_disposition = response.headers.get('content-disposition')
@@ -125,7 +125,7 @@ async def send_file(item, message):
             await message.reply_text("Failed to download the file from the provided URL.")
     except Exception as e:
         await message.reply_text(f"An error occurred: {str(e)}")
-        finally:
+    finally:
         # Delete the status indicating message
         await status_message.delete()
         
