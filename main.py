@@ -88,8 +88,6 @@ async def handle_message(client, message):
 
 
 
-
-
 async def send_file(item, message, status_message):
     try:
         response = requests.get(item)
@@ -106,10 +104,10 @@ async def send_file(item, message, status_message):
             if content_type:
                 if 'video' in content_type:
                     # Get video duration
-                    video_duration = get_video_duration(file_bytes)
+                    video_duration = get_video_duration(file_bytes.getvalue())
 
                     # Generate thumbnail
-                    thumbnail_bytes = generate_thumbnail(file_bytes)
+                    thumbnail_bytes = generate_thumbnail(file_bytes.getvalue())
 
                     await message.reply_video(video=file_bytes, duration=video_duration, thumb=thumbnail_bytes, caption=filename)
                 elif 'image' in content_type:
@@ -136,13 +134,20 @@ async def send_file(item, message, status_message):
         # Delete the status indicating message
         await status_message.delete()
 
-def get_video_duration(video_bytes):
-    video = mp.VideoFileClip(video_bytes)
-    return int(video.duration)
+def get_video_duration(file_content):
+    with open("temp_video.mp4", "wb") as temp_file:
+        temp_file.write(file_content)
+    video = mp.VideoFileClip("temp_video.mp4")
+    duration = int(video.duration)
+    os.remove("temp_video.mp4")  # Remove temporary file
+    return duration
 
-def generate_thumbnail(video_bytes):
-    video = mp.VideoFileClip(video_bytes)
+def generate_thumbnail(file_content):
+    with open("temp_video.mp4", "wb") as temp_file:
+        temp_file.write(file_content)
+    video = mp.VideoFileClip("temp_video.mp4")
     thumbnail_bytes = video.get_frame(0)  # Get the first frame as the thumbnail
+    os.remove("temp_video.mp4")  # Remove temporary file
     return thumbnail_bytes
         
 
