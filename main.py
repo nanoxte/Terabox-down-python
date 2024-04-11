@@ -4,6 +4,7 @@ from api import get_details
 import requests
 import io
 import os
+import tempfile
 import moviepy.editor as mp
 
 # Initialize the Pyrogram client with API credentials
@@ -105,12 +106,12 @@ async def send_file(item, message, status_message):
             if content_type:
                 if 'video' in content_type:
                     # Get video duration
-                    video_duration = get_video_duration(file_bytes.getvalue())
+                    video_duration = get_video_duration(file_bytes)
 
                     # Generate thumbnail
-                    thumbnail_bytes = generate_thumbnail(file_bytes.getvalue())
+                    thumbnail_path = generate_thumbnail(file_bytes)
 
-                    await message.reply_video(video=file_bytes, duration=video_duration, thumb=thumbnail_bytes, caption=filename)
+                    await message.reply_video(video=file_bytes, duration=video_duration, thumb=thumbnail_path, caption=filename)
                 elif 'image' in content_type:
                     await message.reply_photo(photo=file_bytes, caption=filename)
                 else:
@@ -135,21 +136,24 @@ async def send_file(item, message, status_message):
         # Delete the status indicating message
         await status_message.delete()
 
-def get_video_duration(file_content):
-    with open("temp_video.mp4", "wb") as temp_file:
-        temp_file.write(file_content)
-    video = mp.VideoFileClip("temp_video.mp4")
+def get_video_duration(file_bytes):
+    with tempfile.NamedTemporaryFile(suffix='.mp4', delete=False) as temp_file:
+        temp_file.write(file_bytes.getbuffer())
+        temp_file_path = temp_file.name
+    video = mp.VideoFileClip(temp_file_path)
     duration = int(video.duration)
-    os.remove("temp_video.mp4")  # Remove temporary file
+    os.remove(temp_file_path)  # Remove temporary file
     return duration
 
-def generate_thumbnail(file_content):
-    with open("temp_video.mp4", "wb") as temp_file:
-        temp_file.write(file_content)
-    video = mp.VideoFileClip("temp_video.mp4")
-    thumbnail_bytes = video.get_frame(0)  # Get the first frame as the thumbnail
-    os.remove("temp_video.mp4")  # Remove temporary file
-    return thumbnail_bytes
+def generate_thumbnail(file_bytes):
+    with tempfile.NamedTemporaryFile(suffix='.mp4', delete=False) as temp_file:
+        temp_file.write(file_bytes.getbuffer())
+        temp_file_path = temp_file.name
+    video = mp.VideoFileClip(temp_file_path)
+    thumbnail_path = f"{temp_file_path}_thumbnail.jpg"
+    video.save_frame(thumbnail_path, t=0)  # Save the first frame as the thumbnail
+    os.remove(temp_file_path)  # Remove temporary file
+    return thumbnail_path
         
 
 
