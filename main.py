@@ -112,9 +112,11 @@ async def send_file(item, message, status_message):
                     with tempfile.NamedTemporaryFile(suffix='.mp4', delete=False) as temp_video:
                         temp_video.write(response.content)
                         temp_video_path = temp_video.name
-                    
+                    print("Temp video path:", temp_video_path)  # Add this line to check the temp video path
+
                     # Get video duration using moviepy
                     clip = VideoFileClip(temp_video_path)
+                    print("Clip duration:", clip.duration)  # Add this line to check the clip duration
                     duration = clip.duration
                     clip.close()
                     
