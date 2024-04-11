@@ -3,7 +3,6 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from api import get_details
 import requests
 import io
-from telegram import ParseMode
 from moviepy.editor import VideoFileClip
 import tempfile
 from http.client import IncompleteRead
