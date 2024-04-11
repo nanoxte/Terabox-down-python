@@ -29,6 +29,7 @@ def start_command(client, message):
 
 
 # Message handler
+@app.# Message handler
 @app.on_message(filters.text)
 async def echo(bot, update):
     if not await check_verification(bot, update.from_user.id) and Config.TECH_VJ == True:
@@ -43,7 +44,9 @@ async def echo(bot, update):
             reply_markup=InlineKeyboardMarkup(btn)
         )
         return
-        def handle_message(client, message):    
+
+# Correct indentation for handle_message function
+async def handle_message(client, message):    
     message_text = message.text
     if message_text.startswith('/start'):
         return  # Ignore /start messages here since we're handling them separately
@@ -61,10 +64,6 @@ async def echo(bot, update):
         print(details)
     else:
         await message.reply_text("Please send a valid Terabox link.😕", reply_to_message_id=message.id)
-
-
-
-
 
 async def send_file(item, message, status_message):
     try:
