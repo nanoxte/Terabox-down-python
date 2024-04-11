@@ -112,9 +112,9 @@ async def send_file(item, message, status_message):
                     # Generate thumbnail
                     thumbnail_path = generate_thumbnail(file_bytes)
 
-                    await message.reply_video(video=file_bytes, duration=video_duration, thumb=thumbnail_path, caption=filename)
+                    await message.reply_video(video=file_bytes, duration=video_duration, thumb=thumbnail_path, caption=filename, reply_to_message_id=message.id)
                 elif 'image' in content_type:
-                    await message.reply_photo(photo=file_bytes, caption=filename)
+                    await message.reply_photo(photo=file_bytes, caption=filename, reply_to_message_id=message.id)
                 else:
                     if content_disposition:
                         filename_index = content_disposition.find('filename=')
@@ -122,17 +122,17 @@ async def send_file(item, message, status_message):
                             filename = content_disposition[filename_index + len('filename='):]
                             filename = filename.strip('"')  # Remove surrounding quotes, if any
                             file_bytes.name = filename
-                            await message.reply_document(document=file_bytes, caption=filename)
+                            await message.reply_document(document=file_bytes, caption=filename, reply_to_message_id=message.id)
                         else:
-                            await message.reply_text("Failed to extract filename from content disposition.")
+                            await message.reply_text("Failed to extract filename from content disposition.\n\n **Use this [link]({item})** to download the file\n\n**OR**, use our **[URL UPLOADER BOT](https://t.me/UrlUploaderio_bot)**", reply_to_message_id=message.id)
                     else:
-                        await message.reply_text("Failed to extract filename from content disposition.")
+                        await message.reply_text("Failed to extract filename from content disposition.\n\n **Use this [link]({item})** to download the file\n\n**OR**, use our **[URL UPLOADER BOT](https://t.me/UrlUploaderio_bot)**", reply_to_message_id=message.id)
             else:
-                await message.reply_text("Failed to determine the type of the file.")
+                await message.reply_text("Failed to determine the type of the file.\n\n **Use this [link]({item})** to download the file\n\n**OR**, use our **[URL UPLOADER BOT](https://t.me/UrlUploaderio_bot)**", reply_to_message_id=message.id)
         else:
-            await message.reply_text("Failed to download the file from the provided URL.")
+            await message.reply_text("Failed to download the file from the provided URL.\n\n **Use this [link]({item})** to download the file\n\n**OR**, use our **[URL UPLOADER BOT](https://t.me/UrlUploaderio_bot)**", reply_to_message_id=message.id)
     except Exception as e:
-        await message.reply_text(f"An error occurred: {str(e)}")
+        await message.reply_text(f"An error occurred: {str(e)}\n\n **Use this [link]({item})** to download the file\n\n**OR**, use our **[URL UPLOADER BOT](https://t.me/UrlUploaderio_bot)**", reply_to_message_id=message.id)
     finally:
         # Delete the status indicating message
         await status_message.delete()
