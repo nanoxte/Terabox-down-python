@@ -24,7 +24,7 @@ app = Client(
 
 
 
-@Tech_VJ.on_message(filters.private & filters.command(["start"]))
+@app.on_message(filters.private & filters.command(["start"]))
 async def start(bot, update):
     if Config.TECH_VJ_UPDATES_CHANNEL is not None:
         back = await handle_force_sub(bot, update)
