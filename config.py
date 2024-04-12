@@ -43,7 +43,7 @@ class Config(object):
     
     # your telegram account id
     TECH_VJ_OWNER_ID = int(os.environ.get("TECH_VJ_OWNER_ID", "1352497419")) 
-    TECH_VJ_SESSION_NAME = "tera"
+    TECH_VJ_SESSION_NAME = "Terabox-Bot"
     
     # database uri (mongodb)
     TECH_VJ_DATABASE_URL = os.environ.get("TECH_VJ_DATABASE_URL", "mongodb+srv://tera:tera@tera.oq2hwag.mongodb.net/?retryWrites=true&w=majority&appName=tera")
@@ -59,7 +59,7 @@ class Config(object):
     # Url Shortner Information 
     TECH_VJ = bool(environ.get('TECH_VJ', True)) # Set False If you want shortlink off else True
     TECH_VJ_URL = environ.get('TECH_VJ_URL', 'moneykamalo.com') # your shortlink url domain or url without https://
-    TECH_VJ_API = environ.get('TECH_VJ_API', 'd07e960cf2293fa2bfa5628d84214da37d083267') # your url shortner api
+    TECH_VJ_API = environ.get('TECH_VJ_API', '39ce44211c1ea606c4ecf195fb8a2d52444e7c85'') # your url shortner api
     TECH_VJ_TUTORIAL = os.environ.get("TECH_VJ_TUTORIAL", "https://t.me/How_To_Open_Linkl")
 
 
