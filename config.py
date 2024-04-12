@@ -46,7 +46,7 @@ class Config(object):
     TECH_VJ_SESSION_NAME = "Terabox-Bot"
     
     # database uri (mongodb)
-    TECH_VJ_DATABASE_URL = os.environ.get("TECH_VJ_DATABASE_URL", "mongodb+srv://movie:movie@movie.wtnh2cy.mongodb.net/?retryWrites=true&w=majority&appName=movie")
+    TECH_VJ_DATABASE_URL = os.environ.get("TECH_VJ_DATABASE_URL", "mongodb+srv://tera:tera@tera.oq2hwag.mongodb.net/?retryWrites=true&w=majority&appName=tera")
     TECH_VJ_MAX_RESULTS = "50"
 
     # channel information
